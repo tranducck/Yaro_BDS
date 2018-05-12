@@ -1,0 +1,16 @@
+- active = yield :active
+%nav.side-navbar
+  .sidebar-header.d-flex.align-items-center
+    .avatar
+      = image_tag("avatar.gif", alt: "Avatar", class: "img-fluid rounded-circle")
+    .title
+      %h1.h4
+        Somewhere I belong
+      %p
+        Yaro
+  %span.heading Main
+  %ul.list-unstyled
+    %li{ class: active == "dashboard" ? "active" : "" }
+      %a{ href: "#{ root_path }" }
+        %i.fa.fa-home
+        Dashboard

@@ -6,5 +6,19 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{ href: "https://fonts.googleapis.com/css?family=Poppins:300,400,700", rel: "stylesheet" }/
   %body
+  - if logged_in?
+    %body
+      .page.home-page
+        = render "shared/header"
+        .page-content.d-flex.align-items-stretch
+          = render "shared/side-navbar"
+          .content-inner
+            .content-body
+              - flash.each do |name, msg|
+                %div{ class: "alert alert-#{ name }" }
+                  = msg
+              = yield
+  - else
     = yield

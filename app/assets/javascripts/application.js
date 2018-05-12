@@ -10,9 +10,15 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
+//= require jquery
+//= require jquery_ujs
 //= require turbolinks
 //= require react
 //= require react_ujs
 //= require components
 //= require_tree .
+//= require bootstrap-4-material-admin/vendor/popper.js/umd/popper.min.js
+//= require bootstrap-4-material-admin/vendor/bootstrap/js/bootstrap.min.js
+//= require bootstrap-4-material-admin/vendor/jquery.cookie/jquery.cookie.js
+//= require bootstrap-4-material-admin/vendor/jquery-validation/jquery.validate.min.js
+//= require bootstrap-4-material-admin/js/front.js

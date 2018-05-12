@@ -1,0 +1,39 @@
+%header.header
+  %nav.navbar
+    .container-fluid
+      .navbar-holder.d-flex.align-items-center.justify-content-between
+        .navbar-header
+          %a.navbar-brand{ href: "#" }
+            .brand-text.brand-big
+              %strong Upinus
+              %span Partner
+            .brand-text.brand-small
+              %strong UP
+          %a#toggle-btn.menu-btn.active{ href: "#" }
+            %span
+            %span
+            %span
+        %ul.nav-menu.list-unstyled.d-flex.flex-md-row.align-items-md-center
+          %li.nav-item.dropdown
+            %a#notifications.nav-link{ rel: "nofollow", "data-target": "#", href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": false }
+              %i.fa.fa-bell-o
+              %span.badge.bg-red
+            %ul.dropdown-menu{ "aria-labelledby": "notifications" }
+              %li
+                %a.dropdown-item{ "rel": "nofollow", href: "#" }
+                  %strong
+                    %h5
+                      Coming soon!
+          %li.nav-item.dropdown
+            %a#notifications.nav-link{ rel: "nofollow", "data-target": "#", href: "#", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": false }
+              %i.fa.fa-envelope-o
+              %span.badge.bg-orange
+            %ul.dropdown-menu{ "aria-labelledby": "notifications" }
+              %li
+                %a.dropdown-item{ "rel": "nofollow", href: "#" }
+                  %h5
+                    Coming soon!
+          %li.nav-item
+            %a.nav-link.logout{ "data-method": "delete", href: "#{ logout_path }" }
+              Logout
+              %i.fa.fa-sign-out
