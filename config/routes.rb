@@ -11,4 +11,13 @@ Rails.application.routes.draw do
   resources :user_infos, only: [:new, :create]
   resources :brands
   resources :customer_notes
+
+  namespace :admin do
+    root "dashboard#index"
+    resources :users
+    resources :projects
+    get "login", to: "sessions#new"
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
+  end
 end

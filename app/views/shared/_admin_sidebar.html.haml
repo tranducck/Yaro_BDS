@@ -1,0 +1,21 @@
+- active = yield :active
+%nav.side-navbar
+  .sidebar-header.d-flex.align-items-center
+    .avatar
+        = image_tag("avatar.gif", alt: "Avatar", class: "img-fluid rounded-circle")
+    .title
+      %h1.h4
+        Admin
+      %p Yaro
+
+  %span.heading Admin
+  %ul.list-unstyled
+    %li{ class: active == "project" ? "active" : "" }
+      %a{ href: "#projectSidebar", "data-toggle": "collapse" }
+        %i.fa.fa-users
+        Project
+      %ul#projectSidebar.list-unstyled.collapse
+        %li
+          %a{ href: "#" } List customer
+        %li
+          %a{ href: "#" } Add customer
