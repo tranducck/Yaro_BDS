@@ -1,0 +1,65 @@
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4= @customer.name
+          .card-body
+            = render "shared/error_messages", object: @customer
+            = form_for(@customer, url: customer_path(@customer)) do |f|
+              .form-group
+                %label.form-control-label Name
+                = f.text_field :name, class: "form-control"
+              .form-group
+                %label.form-control-label Birth
+                .form-inline.form-birthday
+                  = f.date_select :dob,
+                    { default: { day: "1", month: "1", year: "1970" },
+                      order: [:day, :month, :year],
+                      start_year: Date.current.year, end_year: 1980 },
+                    class: "form-control", size: ""
+              .form-group
+                %label.form-control-label Relation
+                = f.text_field :relation, class: "form-control"
+              .form-group
+                %label.form-control-label Gender
+                = f.select :gender, [["Chọn giới tính", ""], ["Nam", "male"], ["Nữ", "female"]], {},  { class: "form-control col-sm-4", size: "" }
+              .form-group
+                %label.form-control-label Email
+                = f.email_field :email, class: "form-control"
+              .form-group
+                %label.form-control-label Phone
+                = f.text_field :phone, class: "form-control"
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Save change
+:javascript
+  $(function(){
+    railsMonthDates();
+    $("select[id*=_2i], select[id*=_1i]").change( railsMonthDates );
+  });
+
+  function railsMonthDates() {
+    $("select[id*=_2i]").each(function(){
+      $monthSelect = $(this);
+      $daySelect = $(this).siblings("select[id*=_3i]");
+      $yearSelect = $(this).siblings("select[id*=_1i]");
+
+      var year = parseInt($yearSelect.val());
+      var month = parseInt($monthSelect.val());
+      var days = new Date(year, month, 0).getDate();
+
+      var selectedDay = $daySelect.val();
+      $daySelect.html('');
+      for(var i=1; i<=days; i++) {
+        $daySelect.append('<option value="'+i+'">'+i+'</option>');
+      }
+      if (selectedDay > days) {
+        $daySelect.val(days);
+      } else {
+        $daySelect.val(selectedDay);
+      }
+    });
+  }

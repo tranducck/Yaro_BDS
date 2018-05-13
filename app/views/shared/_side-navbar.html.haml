@@ -18,6 +18,15 @@
   %span.heading Main
   %ul.list-unstyled
     %li{ class: active == "dashboard" ? "active" : "" }
-      %a{ href: "#{ root_path }" }
+      %a{ href: root_path }
         %i.fa.fa-home
         Dashboard
+    %li{ class: active == "customer" ? "active" : "" }
+      %a{ href: "#customerSidebar", "data-toggle": "collapse" }
+        %i.fa.fa-users
+        Customer
+      %ul#customerSidebar.list-unstyled.collapse
+        %li
+          %a{ href: customers_path } List customer
+        %li
+          %a{ href: new_customer_path } Add customer

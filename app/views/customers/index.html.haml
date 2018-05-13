@@ -1,0 +1,38 @@
+- provide(:active, "customer")
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @customers
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Thông tin tài khoản
+          .card-body
+            %table.table
+              %thead
+                %th #
+                %th Name
+                %th Birth
+                %th Relation
+                %th Email
+                %th Phone
+                %th Action
+              %tbody
+                - @customers.each do |customer|
+                  %tr
+                    %td= customer.id
+                    %td
+                      %a{ href: edit_customer_path(customer) }
+                        = customer.name
+                    %td= customer.dob
+                    %td= customer.relation
+                    %td= customer.email
+                    %td= customer.phone
+                    %td
+                      %a.btn.btn-sm.btn-info{ href: customer_notes_path(customer_id: customer.id) }
+                        %span.fa.fa-sticky-note-o
+                        View notes
+                      %a.btn.btn-sm.btn-default{ href: new_customer_note_path(customer_id: customer.id) }
+                        %span.fa.fa-plus
+                        Add note
+        = will_paginate @customers

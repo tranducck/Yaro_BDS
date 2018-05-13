@@ -1,0 +1,20 @@
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Create note
+          .card-body
+            = render "shared/error_messages", object: @note
+            = form_for(@note, url: customer_note_path(@note)) do |f|
+              .form-group
+                %label.form-control-label Title
+                = f.text_field :title, class: "form-control"
+              .form-group
+                %label.form-control-label Content
+                = f.text_area :content, class: "form-control"
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Save changes

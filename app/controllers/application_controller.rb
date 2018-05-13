@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+    def user_must_has_profile
+      unless current_user.brands[0]
+        flash[:danger] = "You must update your profile first"
+        redirect_to new_user_info_path
+      end
+    end
 end

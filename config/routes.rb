@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :customers
   resources :user_infos, only: [:new, :create]
   resources :brands
+  resources :customer_notes
 end

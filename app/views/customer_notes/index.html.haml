@@ -1,0 +1,27 @@
+- provide(:active, "customer")
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @notes
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 List notes
+          .card-body
+            %table.table
+              %thead
+                %th #
+                %th Title
+                %th Content
+                %th Action
+              %tbody
+                - @notes.each do |note|
+                  %tr
+                    %td= note.id
+                    %td= note.title
+                    %td= note.content
+                    %td
+                      %a.btn.btn-sm.btn-info{ href: edit_customer_note_path(note) }
+                        %span.fa.fa-pencil
+                        Edit
+        = will_paginate @notes
