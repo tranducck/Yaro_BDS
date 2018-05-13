@@ -1,0 +1,24 @@
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Thông tin tài khoản
+          .card-body
+            = render "shared/error_messages", object: @brand
+            = form_for(@brand, url: brand_path(@brand), html: { multipart: true }) do |f|
+              .form-group-material
+                = f.text_field :name, class: "form-control", placeholder: "Name"
+              .form-group-material
+                = f.text_field :hot_line, class: "form-control", placeholder: "Hot line"
+              .form-group
+                = f.text_area :info, class: "form-control", placeholder: "Thong tin ca nhan"
+              .form-group.row
+                %label.col-sm-3.form-control-label Anh dai dien
+                .col-sm-9
+                  = f.file_field :logo
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Save changes

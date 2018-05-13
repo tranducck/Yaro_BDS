@@ -8,5 +8,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
   resources :customers
+  resources :user_infos, only: [:new, :create]
   resources :brands
 end

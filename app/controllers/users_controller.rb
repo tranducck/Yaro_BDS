@@ -5,10 +5,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
+    @user.expired_date = Time.now.to_date + Settings.trial_days.day
     if @user.valid?
       @user.save
+      log_in @user
       flash[:success] = "Welcome to BDS Yaro"
-      redirect_to root_path
+      redirect_to new_user_info_path
     else
       render "new"
     end

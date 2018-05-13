@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512162504) do
+ActiveRecord::Schema.define(version: 20180513140011) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admins", force: :cascade do |t|
     t.string "email"
@@ -22,11 +25,14 @@ ActiveRecord::Schema.define(version: 20180512162504) do
   create_table "brands", force: :cascade do |t|
     t.string "name"
     t.string "hot_line"
-    t.string "logo"
     t.text "info"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "logo_file_name"
+    t.string "logo_content_type"
+    t.integer "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "customer_notes", force: :cascade do |t|
@@ -45,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180512162504) do
     t.string "email"
     t.string "phone"
     t.integer "brand_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
