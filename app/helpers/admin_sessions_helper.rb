@@ -4,7 +4,7 @@ module AdminSessionsHelper
   end
 
   def current_admin
-    @current_admin ||= Admiin.find_by(id: session[:admin_id])
+    @current_admin ||= Admin.find_by(id: session[:admin_id])
   end
 
   def admin_logged_in?

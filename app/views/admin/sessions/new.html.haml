@@ -1,0 +1,21 @@
+.page.login-page
+  .container.d-flex.align-items-center
+    .form-holder.has-shadow
+      .row
+        .col-lg-6
+          .info.d-flex.align-items-center
+            .content
+              .logo
+                %h1
+                  Admin
+              %p
+                Admin dang nhap
+        .col-lg-6.bg-white
+          .form.d-flex.align-items-center
+            .content
+              = form_for(:session, url: admin_login_path, class: "login-form", method: "POST") do |f|
+                .form-group
+                  = f.email_field :email, class: "input-material", placeholder: "Email"
+                .form-group
+                  = f.password_field :password, class: "input-material", placeholder: "Password"
+                = f.submit "Log in", class: "btn btn-primary"

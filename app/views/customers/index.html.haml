@@ -3,20 +3,25 @@
   .container-fluid
     .row
       .col-lg-12
+        .form-group.pull-right
+          %a.btn.btn-primary{ href: new_customer_path }
+            %span.fa.fa-plus
+            Thêm mới khách hàng
+      .col-lg-12
         = will_paginate @customers
         .card
           .card-header.d-flex.align-items-center
-            %h3.h4 Thông tin tài khoản
+            %h3.h4 Danh sách khách hàng
           .card-body
             %table.table
               %thead
                 %th #
-                %th Name
-                %th Birth
-                %th Relation
+                %th Họ tên
+                %th Ngày sinh
+                %th Quan hệ
                 %th Email
-                %th Phone
-                %th Action
+                %th SĐT
+                %th Chức năng
               %tbody
                 - @customers.each do |customer|
                   %tr
@@ -31,8 +36,8 @@
                     %td
                       %a.btn.btn-sm.btn-info{ href: customer_notes_path(customer_id: customer.id) }
                         %span.fa.fa-sticky-note-o
-                        View notes
+                        Ghi chú
                       %a.btn.btn-sm.btn-default{ href: new_customer_note_path(customer_id: customer.id) }
                         %span.fa.fa-plus
-                        Add note
+                        Thêm ghi chú
         = will_paginate @customers

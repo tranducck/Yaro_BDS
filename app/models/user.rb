@@ -4,7 +4,7 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false}
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-  validates :status, inclusion: { in: %w(active trial delete) }
+  validates :status, inclusion: { in: %w(active trial inactive) }
   VALID_PHONE_REGEX = /[0-9]/
   validates :phone, presence: true, format: { with: VALID_PHONE_REGEX }
 

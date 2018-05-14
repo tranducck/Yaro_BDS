@@ -1,0 +1,38 @@
+- provide(:active, "project")
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4= @project.name
+          .card-body
+            = render "shared/error_messages", object: @project
+            = form_for(@project, url: admin_project_path(@project)) do |f|
+              .form-group
+                %label.form-control-label Tên dự án
+                = f.text_field :name, class: "form-control"
+              .form-group
+                %label.form-control-label Địa chỉ
+                = f.text_field :address, class: "form-control"
+              .form-group
+                %label.form-control-label Chủ thầu
+                = f.text_field :investor, class: "form-control"
+              .form-group
+                %label.form-control-label Chủ thi công
+                = f.text_field :constructor, class: "form-control"
+              .form-group
+                %label.form-control-label Thông tin
+                = f.text_area :info, class: "form-control"
+              .form-group
+                %label.form-control-label Anh dai dien
+                - if @project.logo
+                  %div
+                    %img{ src: @project.logo.url, width: 55, height: 55}
+                  %br
+                .col-sm-12
+                  = f.file_field :logo
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Lưu thay đổi

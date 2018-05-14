@@ -22,3 +22,12 @@
 //= require bootstrap-4-material-admin/vendor/jquery.cookie/jquery.cookie.js
 //= require bootstrap-4-material-admin/vendor/jquery-validation/jquery.validate.min.js
 //= require bootstrap-4-material-admin/js/front.js
+//= require jquery.tmpl
+
+function showFlash(msg, type) {
+  var html = "<div class='alert alert-" + type + "'>" + msg +"</div>";
+  $("#flash").html(html);
+  setTimeout(function() {
+    $(".alert").hide("slow", function() { $(".alert").remove() })
+  }, 5000)
+}

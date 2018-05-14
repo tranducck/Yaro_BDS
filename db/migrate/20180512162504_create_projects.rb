@@ -4,7 +4,6 @@ class CreateProjects < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :address
       t.string :investor
-      t.string :logo
       t.string :constructor
       t.text :info
 

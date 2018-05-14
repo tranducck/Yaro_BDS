@@ -15,9 +15,10 @@
         = render "shared/admin_sidebar"
         .content-inner
           .content-body
-            - flash.each do |name, msg|
-              %div{ class: "alert alert-#{ name }" }
-                = msg
+            #flash
+              - flash.each do |name, msg|
+                %div{ class: "alert alert-#{ name }" }
+                  = msg
             = yield
   - else
     = yield

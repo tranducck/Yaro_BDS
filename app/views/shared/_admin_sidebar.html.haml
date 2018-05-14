@@ -2,7 +2,7 @@
 %nav.side-navbar
   .sidebar-header.d-flex.align-items-center
     .avatar
-        = image_tag("avatar.gif", alt: "Avatar", class: "img-fluid rounded-circle")
+      = image_tag("avatar.gif", alt: "Avatar", class: "img-fluid rounded-circle")
     .title
       %h1.h4
         Admin
@@ -10,12 +10,20 @@
 
   %span.heading Admin
   %ul.list-unstyled
+    %li{ class: active == "dashboard" ? "active" : "" }
+      %a{ href: admin_root_path }
+        %i.fa.fa-home
+        Dashboard
     %li{ class: active == "project" ? "active" : "" }
       %a{ href: "#projectSidebar", "data-toggle": "collapse" }
-        %i.fa.fa-users
+        %i.fa.fa-files
         Project
       %ul#projectSidebar.list-unstyled.collapse
         %li
-          %a{ href: "#" } List customer
+          %a{ href: admin_projects_path } List Project
         %li
-          %a{ href: "#" } Add customer
+          %a{ href: new_admin_project_path } Add Project
+    %li{ class: active == "user" ? "active" : "" }
+      %a{ href: admin_users_path }
+        %i.fa.fa-users
+        User

@@ -2,31 +2,34 @@
 %nav.side-navbar
   .sidebar-header.d-flex.align-items-center
     .avatar
-      - if logo = current_user.brands[0].logo
+      - if logo = current_user.brands[0].try(:logo)
         %img.img-fluid.rounded-circle{ src: logo.url, width: 55, height: 55 }
       - else
         = image_tag("avatar.gif", alt: "Avatar", class: "img-fluid rounded-circle")
     .title
       %h1.h4
-        = current_user.brands[0].name ||= current_user.email
+        - if name = current_user.brands[0].try(:name)
+          = name
+        - else
+          = current_user.email
       %p
         - current_brand = current_user.brands[0]
         %a.text-success.pull-right{ href: current_brand ? edit_brand_path(current_brand.id) : new_user_info_path }
           %span.fa.fa-edit
-          Edit Profile
+          Thông tin cá nhân
 
   %span.heading Main
   %ul.list-unstyled
     %li{ class: active == "dashboard" ? "active" : "" }
       %a{ href: root_path }
         %i.fa.fa-home
-        Dashboard
+        Trang chủ
     %li{ class: active == "customer" ? "active" : "" }
       %a{ href: "#customerSidebar", "data-toggle": "collapse" }
         %i.fa.fa-users
-        Customer
+        Khách hàng
       %ul#customerSidebar.list-unstyled.collapse
         %li
-          %a{ href: customers_path } List customer
+          %a{ href: customers_path } Danh sách khách hàng
         %li
-          %a{ href: new_customer_path } Add customer
+          %a{ href: new_customer_path } Thêm khách hàng

@@ -1,0 +1,35 @@
+- provide(:active, "project")
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @projects
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Danh sách khách hàng
+          .card-body
+            %table.table
+              %thead
+                %th Tên
+                %th Ảnh
+                %th Địa chỉ
+                %th Chủ đầu tư
+                %th Chủ thi công
+                %th Thông tin
+              %tbody
+                - @projects.each do |project|
+                  %tr
+                    %td
+                      %a{ href: edit_admin_project_path(project) }
+                        = project.name
+                    %td
+                      - if project.logo
+                        %img{ src: project.logo.url, widht: 55, height: 55 }
+                    %td= project.address
+                    %td= project.investor
+                    %td= project.constructor
+                    %td
+                      %a.btn.btn-sm.btn-info{ href: edit_admin_project_path(project) }
+                        %span.fa.fa-pencil
+                        Edit
+        = will_paginate @projects

@@ -1,7 +1,7 @@
 @import "bootstrap-4-material-admin/vendor/bootstrap/css/bootstrap.min.css";
 @import "bootstrap-4-material-admin/css/fontastic.css";
 @import "bootstrap-4-material-admin/vendor/font-awesome/css/font-awesome.min.css";
-@import "bootstrap-4-material-admin/css/style.green.css";
+@import "bootstrap-4-material-admin/css/style.default.css";
 
 .alert {
   position: fixed;
@@ -247,5 +247,16 @@ html, body {
   100% {
     -moz-transform:scale(.5);
     color:rgb(255, 255, 255);
+  }
+}
+
+.btn.btn-default {
+  color: rgb(41, 43, 44);
+  background-color: rgb(230, 230, 230);
+  border-color: rgb(173, 173, 173);
+  &:hover {
+    color: rgb(41, 43, 44);
+    background-color: rgb(230, 230, 230);
+    border-color: rgb(173, 173, 173);
   }
 }

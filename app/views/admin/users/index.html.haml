@@ -1,0 +1,80 @@
+- provide(:active, "user")
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @users
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 List user
+          .card-body
+            %table.table
+              %thead
+                %th #
+                %th Email
+                %th Phone
+                %th Status
+                %th Expire Date
+                %th Action
+              %tbody
+                - @users.each do |user|
+                  %tr{ "data-id": user.id }
+                    %td= user.id
+                    %td= user.email
+                    %td= user.phone
+                    %td{ "data-display": "status" }
+                      = render "user_status", user: user
+                    %td{ "data-display": "expired-date" }= user.expired_date
+                    %td
+                      %button.btn.btn-sm.btn-info{ type: "button", "data-toggle": "modal", "data-target": "#userExtendModal" }
+                        Gia hạn
+        = will_paginate @users
+#userExtendModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Gia hạn người dùng
+        %button.close{ type: "button", "data-dismiss": "modal" } &times;
+      .modal-body
+        %p 
+          Gia hạn cho tài khoản có email
+          #emailUser
+        .form-group
+          = number_field_tag :days, nil, class: "form-control", placeholder: "Điền số ngày muốn gia hạn"
+      .modal-footer
+        %button.btn.btn-secondary{ type: "button", "data-dismiss": "modal" } Close
+        %button#confirmExtend.btn.btn-primary Confirm
+
+= render "user_tmpl"
+:javascript
+  function handleExtendUser() {
+    var userId;
+    var $row;
+
+    $(document).on("click", "[data-target='#userExtendModal']", function() {
+      $row = $(this).closest("tr[data-id]");
+      userId = $row.attr("data-id");
+    })
+
+    $(document).on("click", "#confirmExtend", function() {
+      $(this).addClass("disabled");
+      $.ajax({
+        url: "#{ admin_users_path }/" + userId,
+        method: "PATCH",
+        data: {
+          days: $("#days").val()
+        },
+        success: function(msg) {
+          var user = msg.data.user;
+          var html = $("#userTemplate").tmpl(user);
+          $row.replaceWith(html);
+          $("#userExtendModal").modal("hide");
+          showFlash(msg.error, "success");
+        },
+        error: function(xhr, status, error) {
+        }
+      })
+    })
+  }
+
+  handleExtendUser();

@@ -1,3 +1,4 @@
+- provide(:active, "customer")
 %section.forms
   .container-fluid
     .row
@@ -9,32 +10,32 @@
             = render "shared/error_messages", object: @customer
             = form_for(@customer, url: customers_path) do |f|
               .form-group
-                %label.form-control-label Name
+                %label.form-control-label Họ tên
                 = f.text_field :name, class: "form-control"
               .form-group
-                %label.form-control-label Birth
+                %label.form-control-label Ngày sinh
                 .form-inline.form-birthday
                   = f.date_select :dob,
                     { default: { day: "1", month: "1", year: "1970" },
                       order: [:day, :month, :year],
-                      start_year: Date.current.year, end_year: 1980 },
+                      start_year: Date.current.year, end_year: 1950 },
                     class: "form-control", size: ""
               .form-group
-                %label.form-control-label Relation
+                %label.form-control-label Quan hệ
                 = f.text_field :relation, class: "form-control"
               .form-group
-                %label.form-control-label Gender
+                %label.form-control-label Giới tính
                 = f.select :gender, [["Chọn giới tính", ""], ["Nam", "male"], ["Nữ", "female"]], {},  { class: "form-control col-sm-4", size: "" }
               .form-group
                 %label.form-control-label Email
                 = f.email_field :email, class: "form-control"
               .form-group
-                %label.form-control-label Phone
+                %label.form-control-label SĐT
                 = f.text_field :phone, class: "form-control"
               .line
               .form-group
                 .pull-right
-                  %button.btn.btn-success Create customer
+                  %button.btn.btn-success Tạo
 :javascript
   $(function(){
     railsMonthDates();

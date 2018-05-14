@@ -1,0 +1,17 @@
+%script#userTemplate{ type: "text/x-jQuery-tmpl" }
+  %tr{ "data-id": "${ id }" }
+    %td ${ id }
+    %td ${ email }
+    %td ${ phone }
+    %td{ "data-display": "status" }
+      {%if status == "trial"%}
+      %span.badge.badge-warning Trial
+      {%elseif status == "active"%}
+      %span.badge.badge-success Active
+      {%elseif status == "inactive"%}
+      %span.badge.badge-success Inactive
+      {%/if%}
+    %td{ "data-display": "expired-date" } ${ expired_date }
+    %td
+      %button.btn.btn-sm.btn-info{ type: "button", "data-toggle": "modal", "data-target": "#userExtendModal" }
+        Gia hạn
