@@ -36,7 +36,9 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'paperclip'
 gem 'react-rails'
 gem 'config', '~> 1.0'
-gem 'pg'
+gem 'mysql2'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -12,17 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20180514021539) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
+  create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "brands", force: :cascade do |t|
+  create_table "brands", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "hot_line"
     t.text "info"
@@ -35,7 +32,7 @@ ActiveRecord::Schema.define(version: 20180514021539) do
     t.datetime "logo_updated_at"
   end
 
-  create_table "customer_notes", force: :cascade do |t|
+  create_table "customer_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.text "content"
     t.integer "customer_id"
@@ -43,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180514021539) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "customers", force: :cascade do |t|
+  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.date "dob"
     t.string "relation"
@@ -56,7 +53,7 @@ ActiveRecord::Schema.define(version: 20180514021539) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "address"
     t.string "investor"
@@ -70,7 +67,7 @@ ActiveRecord::Schema.define(version: 20180514021539) do
     t.datetime "logo_updated_at"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email"
     t.string "password_digest"
     t.string "uid"
