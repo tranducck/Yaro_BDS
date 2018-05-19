@@ -39,6 +39,8 @@ gem 'config', '~> 1.0'
 gem 'mysql2'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ahoy_email'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

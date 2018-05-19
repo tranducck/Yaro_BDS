@@ -7,9 +7,20 @@ class ApplicationController < ActionController::Base
     # Confirms a logged-in user.
     def user_must_logged_in
       unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
+        respond_to do |format|
+          format.html {
+            store_location
+            flash[:danger] = "Please log in."
+            redirect_to login_url
+          }
+
+          format.json {
+            render json: {
+              error: "Unauthorize",
+              data: nil
+            }, status: 401
+          }
+        end
       end
     end
 

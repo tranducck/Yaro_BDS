@@ -260,3 +260,13 @@ html, body {
     border-color: rgb(173, 173, 173);
   }
 }
+
+.close-flash {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}

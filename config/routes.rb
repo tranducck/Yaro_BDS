@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :user_infos, only: [:new, :create]
   resources :brands
   resources :customer_notes
+  resources :email_templates
+  resources :customer_emails
 
   namespace :admin do
     root "dashboard#index"
@@ -19,5 +21,6 @@ Rails.application.routes.draw do
     get "login", to: "sessions#new"
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
+    resources :email_templates
   end
 end

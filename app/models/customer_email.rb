@@ -1,0 +1,2 @@
+class CustomerEmail < ApplicationRecord
+end

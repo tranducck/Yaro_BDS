@@ -15,9 +15,18 @@
         = render "shared/side-navbar"
         .content-inner
           .content-body
-            - flash.each do |name, msg|
-              %div{ class: "alert alert-#{ name }" }
-                = msg
+            #flash
+              - flash.each do |name, msg|
+                %div{ class: "alert alert-#{ name }" }
+                  = msg
+                  %span.close-flash &times;
             = yield
+    :javascript
+      $(document).on("click", ".close-flash", function() {
+        var $alert = $(this).closest(".alert");
+        $alert.hide("slow", function() {
+          $alert.remove();
+        })
+      })
   - else
     = yield

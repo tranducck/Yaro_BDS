@@ -16,6 +16,7 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require ckeditor/init
 //= require_tree .
 //= require bootstrap-4-material-admin/vendor/popper.js/umd/popper.min.js
 //= require bootstrap-4-material-admin/vendor/bootstrap/js/bootstrap.min.js

@@ -1,0 +1,19 @@
+
+- provide(:active, "project")
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Tạo template
+          .card-body
+            = render "shared/error_messages", object: @customer_email
+            = form_for(@customer_email, url: admin_email_templates_path) do |f|
+              .form-group
+                %label.form-control-label Thông tin
+                = f.cktext_area :content, value: EmailTemplate.first.content, class: "form-control"
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Tạo
