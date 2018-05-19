@@ -8,6 +8,13 @@ class Admin::EmailTemplatesController < ApplicationController
 
   def create
     @template = EmailTemplate.new template_params
+    if @template.valid?
+      @template.save
+      flash[:success] = "Tạo template email thành công"
+      redirect_to admin_email_templates_path
+    else
+      render "new"
+    end
   end
 
   private

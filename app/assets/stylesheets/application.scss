@@ -270,3 +270,16 @@ html, body {
   cursor: pointer;
   font-weight: bold;
 }
+
+.email-tmpl-img {
+  border: 1px solid #ccc;
+  margin-left: 15px;
+}
+
+.email-tmpl-title {
+  margin-left: 15px;
+}
+
+.btn.disabled {
+  pointer-events: none;
+}

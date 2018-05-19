@@ -1,19 +1,114 @@
-
-- provide(:active, "project")
+- provide(:active, "customer_email")
 %section.forms
   .container-fluid
     .row
       .col-lg-12
+        %p Tiến hành các bước sau để gửi email khách hàng
+      .col-lg-12
         .card
           .card-header.d-flex.align-items-center
-            %h3.h4 Tạo template
+            %h3#stepText.h4 Bước 1: Chọn template
           .card-body
-            = render "shared/error_messages", object: @customer_email
-            = form_for(@customer_email, url: admin_email_templates_path) do |f|
-              .form-group
-                %label.form-control-label Thông tin
-                = f.cktext_area :content, value: EmailTemplate.first.content, class: "form-control"
-              .line
-              .form-group
-                .pull-right
-                  %button.btn.btn-success Tạo
+            %div{ "data-step": 1 }
+              %table
+                %tbody
+                  - @email_template.each do |tmpl|
+                    %tr
+                      %td
+                        .i-checks
+                          %input.radio-template{ type: "radio", name: "choose-template", value: tmpl.id }
+                      %td
+                        %img.email-tmpl-img{ src: "https://gallery.mailchimp.com/101bfc7be8ee0ac9196b15849/template-screens/10789_screen.1.png", width: "72px", height: "90px" }
+                      %td
+                        .email-tmpl-title= tmpl.title
+                      %td
+                        %input{ type: "hidden", "data-key": "email-content", value: tmpl.content }
+
+            %div{ "data-step": 2, style: "display: none" }
+              %table.table
+                %tbody
+                  - @customers.each do |customer|
+                    %tr{ "data-relation": customer.relation, "data-name": customer.name }
+                      %td
+                        .i-checks
+                          %input.radio-template{ type: "radio", name: "choose-customer", value: customer.id }
+                      %td= customer.name
+                      %td
+                        Email: #{ customer.email }
+            %div{ "data-step": "final", style: "display: none" }
+              = cktext_area_tag :content, ""
+            .line
+            .form-group
+              .pull-right
+                %button.btn.btn-success{ "to-step": "2" } Tiếp
+                %button.btn.btn-success{ "to-step": "3", style: "display: none" } Tiếp
+                %button.btn.btn-success{ "to-step": "final", style: "display: none" } Tao
+
+:javascript
+  function handelCreateEmail() {
+    var emailTemplateId;
+    var customerId;
+    var customerName;
+    var customerRelation;
+    var emailContent;
+    var userId = "#{ current_user.id }";
+
+    $(document).on("click", "[to-step=2]", function() {
+      var $choosenEmail = $("[name=choose-template]:checked");
+      if ($choosenEmail.length > 0) {
+        $(this).hide();
+        $("[to-step=3]").show();
+        $("[data-step=2]").show();
+        $("[data-step=1]").hide();
+        $("#stepText").html("Bước 2: Chọn khách hàng");
+        emailTemplateId = $choosenEmail.val();
+        emailContent = $choosenEmail.closest("tr")
+            .find("[data-key=email-content]").val();
+      } else {
+        showFlash("Vui lòng chọn template để tiếp tục", "danger");
+      }
+    })
+
+    $(document).on("click", "[to-step=3]", function() {
+      var $choosenCustomer = $("[name=choose-customer]:checked");
+      if ($choosenCustomer.length > 0) {
+        $(this).hide();
+        $("[to-step=final]").show();
+        $("[data-step=final]").show();
+        $("[data-step=2]").hide();
+        $("#stepText").html("Bước 3: Chỉnh sửa email");
+        customerId = $choosenCustomer.val();
+        customerRelation = $choosenCustomer.closest("tr").attr("data-relation");
+        customerName = $choosenCustomer.closest("tr").attr("data-name");
+        emailContent = emailContent.replace("*|relation|*", customerRelation);
+        emailContent = emailContent.replace("*|name|*", customerName);
+        CKEDITOR.instances["content"].setData(emailContent);
+      } else {
+        showFlash("Vui lòng chọn khách hàng để tiếp tục", "danger");
+      }
+    })
+
+    $(document).on("click", "[to-step=final]", function() {
+      $(this).addClass("disabled");
+      $.ajax({
+        url: "#{ customer_emails_path }",
+        method: "POST",
+        data: {
+          email: {
+            user_id: userId,
+            customer_id: customerId,
+            email_template_id: emailTemplateId,
+            content: CKEDITOR.instances["content"].getData()
+          }
+        },
+        success: function(msg) {
+          showFlash("Success", "success");
+        },
+        error: function() {
+          showFlash("Something error", "danger");
+        }
+      })
+    })
+  }
+
+  handelCreateEmail();
