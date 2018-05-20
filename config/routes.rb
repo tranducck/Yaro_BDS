@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :customer_notes
   resources :email_templates
   resources :customer_emails
+  get "projects/:project_id/brands/:brand_id", to: "projects#show"
 
   namespace :admin do
     root "dashboard#index"
