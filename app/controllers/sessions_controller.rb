@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Đăng nhập thành công"
       redirect_back_or user
     else
-      flash.now[:danger] = "Invalid email/password combination"
+      flash.now[:danger] = "Thông tin đăng nhập sai"
       render "new"
     end
   end

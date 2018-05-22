@@ -1,0 +1,24 @@
+- provide(:active, "password")
+%section.forms
+  .container-fluid
+    .row
+      .col-lg-12
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Đổi mật khẩu
+          .card-body
+            = render "shared/error_messages", object: @user
+            = form_for(@user, url: user_path(@user), html: { multipart: true }) do |f|
+              .form-group
+                %label.form-control-label Mật khẩu cũ
+                = f.password_field :old_password, class: "form-control"
+              .form-group
+                %label.form-control-label Mật khẩu mới
+                = f.password_field :password, class: "form-control"
+              .form-group
+                %label.form-control-label Xác nhận mật khẩu mới
+                = f.password_field :password_confirmation, class: "form-control"
+              .line
+              .form-group
+                .pull-right
+                  %button.btn.btn-success Đổi mật khẩu

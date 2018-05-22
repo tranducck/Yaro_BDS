@@ -13,6 +13,10 @@
         .col-lg-6.bg-white
           .form.d-flex.align-items-center
             .content
+              .error-explanation.text-danger
+                - flash.each do |name, msg|
+                  %ul
+                    %li= msg
               = form_for(:session, url: login_path, class: "login-form") do |f|
                 .form-group
                   = f.email_field :email, class: "input-material", placeholder: "Email"

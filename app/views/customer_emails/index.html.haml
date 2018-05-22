@@ -1,0 +1,38 @@
+- provide(:active, "email")
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @emails
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Danh sách email
+          .card-body
+            %table.table
+              %thead
+                %th #
+                %th Subject
+                %th Dự án
+                %th Khách hàng
+                %th Đã mở email
+                %th Đã xem dự án
+              %tbody
+                - @emails.each do |email|
+                  %tr
+                    %td= email.id
+                    %td= email.title
+                    %td= email.project.name
+                    %td= email.customer.name
+                    %td
+                      - if email.messages[0].opened_at
+                        = email.messages[0].opened_at.strftime("%Y-%m-%d")
+                      - else
+                        %span.badge.badge-danger
+                          Chưa mở
+                    %td
+                      - if email.messages[0].clicked_at
+                        = email.messages[0].clicked_at.strftime("%Y-%m-%d")
+                      - else
+                        %span.badge.badge-danger
+                          Chưa xem
+        = will_paginate @emails

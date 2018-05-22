@@ -16,7 +16,7 @@
         Dashboard
     %li{ class: active == "project" ? "active" : "" }
       %a{ href: "#projectSidebar", "data-toggle": "collapse" }
-        %i.fa.fa-files
+        %i.fa.fa-file
         Project
       %ul#projectSidebar.list-unstyled.collapse
         %li
@@ -27,3 +27,12 @@
       %a{ href: admin_users_path }
         %i.fa.fa-users
         User
+    %li{ class: active == "email" ? "active" : "" }
+      %a{ href: "#emailSidebar", "data-toggle": "collapse" }
+        %i.fa.fa-envelope
+        Email
+      %ul#emailSidebar.list-unstyled.collapse
+        %li
+          %a{ href: admin_email_templates_path } List Email Template
+        %li
+          %a{ href: new_admin_email_template_path } Add Email Template

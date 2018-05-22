@@ -7,9 +7,9 @@
             %h3.h4 Tạo template
           .card-body
             = render "shared/error_messages", object: @template
-            = form_for(@template, url: admin_email_templates_path) do |f|
+            = form_for(@template, url: admin_email_template_path(@template)) do |f|
               .form-group
-                %label.form-control-label Tên Template
+                %label.form-control-label Tên dự án
                 = f.text_field :title, class: "form-control"
               .form-group
                 %label.form-control-label Thông tin

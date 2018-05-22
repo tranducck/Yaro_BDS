@@ -1,0 +1,23 @@
+%section.tables
+  .container-fluid
+    .row
+      .col-lg-12
+        = will_paginate @templates
+        .card
+          .card-header.d-flex.align-items-center
+            %h3.h4 Email template
+          .card-body
+            %table.table
+              %thead
+                %th #
+                %th Tên
+                %th Action
+              %tbody
+                - @templates.each do |tmpl|
+                  %tr
+                    %td= tmpl.id
+                    %td= tmpl.title
+                    %td
+                      %a.btn.btn-sm.btn-info{ href: edit_admin_email_template_path(tmpl) }
+                        Edit
+        = will_paginate @templates

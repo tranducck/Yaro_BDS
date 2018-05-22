@@ -1,4 +1,4 @@
-- provide(:active, "customer_email")
+- provide(:active, "email")
 %section.forms
   .container-fluid
     .row
@@ -35,14 +35,31 @@
                       %td= customer.name
                       %td
                         Email: #{ customer.email }
+            %div{ "data-step": 3, style: "display: none" }
+              %table.table
+                %tbody
+                  - @projects.each do |project|
+                    %tr
+                      %td
+                        .i-checks
+                          %input.radio-template{ type: "radio", name: "choose-project", value: project.id }
+                      %td= project.name.upcase
+                      %td Chủ đầu tư: #{ project.investor }
+                      %td Chủ thi công: #{ project.constructor }
             %div{ "data-step": "final", style: "display: none" }
-              = cktext_area_tag :content, ""
+              .form-group
+                %label.form-control-label Subject
+                = text_field_tag :email_subject, "", class: "form-control"
+              .form-group
+                %label.form-control-label Relation
+                = cktext_area_tag :content, ""
             .line
             .form-group
               .pull-right
                 %button.btn.btn-success{ "to-step": "2" } Tiếp
                 %button.btn.btn-success{ "to-step": "3", style: "display: none" } Tiếp
-                %button.btn.btn-success{ "to-step": "final", style: "display: none" } Tao
+                %button.btn.btn-success{ "to-step": "4", style: "display: none" } Tiếp
+                %button.btn.btn-success{ "to-step": "final", style: "display: none" } Gửi Email
 
 :javascript
   function handelCreateEmail() {
@@ -52,6 +69,8 @@
     var customerRelation;
     var emailContent;
     var userId = "#{ current_user.id }";
+    var brandId = "#{ current_user.brands[0].id }"
+    var projectId;
 
     $(document).on("click", "[to-step=2]", function() {
       var $choosenEmail = $("[name=choose-template]:checked");
@@ -73,18 +92,36 @@
       var $choosenCustomer = $("[name=choose-customer]:checked");
       if ($choosenCustomer.length > 0) {
         $(this).hide();
-        $("[to-step=final]").show();
-        $("[data-step=final]").show();
+        $("[to-step=4]").show();
+        $("[data-step=3]").show();
         $("[data-step=2]").hide();
-        $("#stepText").html("Bước 3: Chỉnh sửa email");
+        $("#stepText").html("Bước 3: Chọn dự án");
         customerId = $choosenCustomer.val();
         customerRelation = $choosenCustomer.closest("tr").attr("data-relation");
         customerName = $choosenCustomer.closest("tr").attr("data-name");
+        customerName = $choosenCustomer.closest("tr").attr("data-name");
         emailContent = emailContent.replace("*|relation|*", customerRelation);
         emailContent = emailContent.replace("*|name|*", customerName);
-        CKEDITOR.instances["content"].setData(emailContent);
       } else {
         showFlash("Vui lòng chọn khách hàng để tiếp tục", "danger");
+      }
+    })
+
+    $(document).on("click", "[to-step=4]", function() {
+      var $choosenProject = $("[name=choose-project]:checked");
+      if ($choosenProject.length > 0) {
+        $(this).hide();
+        $(this).hide();
+        $("[to-step=final]").show();
+        $("[data-step=final]").show();
+        $("[data-step=3]").hide();
+        $("#stepText").html("Bước 4: Chỉnh sửa email");
+        projectId = $choosenProject.val();
+        var emailLink = "#{ root_url }projects/" + projectId + "/brands/" + brandId;
+        emailContent = emailContent.replace("*|link|*", emailLink);
+        CKEDITOR.instances["content"].setData(emailContent);
+      } else {
+        showFlash("Vui lòng chọn dự án để tiếp tục", "danger");
       }
     })
 
@@ -98,7 +135,9 @@
             user_id: userId,
             customer_id: customerId,
             email_template_id: emailTemplateId,
-            content: CKEDITOR.instances["content"].getData()
+            content: CKEDITOR.instances["content"].getData(),
+            project_id: projectId,
+            title: $("#email_subject").val()
           }
         },
         success: function(msg) {

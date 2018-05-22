@@ -33,3 +33,16 @@
           %a{ href: customers_path } Danh sách khách hàng
         %li
           %a{ href: new_customer_path } Thêm khách hàng
+    %li{ class: active == "email" ? "active" : "" }
+      %a{ href: "#emailSidebar", "data-toggle": "collapse" }
+        %i.fa.fa-envelope
+        Quản lý Email
+      %ul#emailSidebar.list-unstyled.collapse
+        %li
+          %a{ href: customer_emails_path } Danh sách Email đã gửi
+        %li
+          %a{ href: new_customer_email_path } Gửi mail khách hàng
+    %li{ class: active == "password" ? "active" : "" }
+      %a{ href: edit_user_path(current_user) }
+        %i.fa.fa-key
+        Đổi mật khẩu
